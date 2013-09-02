@@ -17,15 +17,25 @@
 var Hapi = require('hapi');
 var routes = require('./routes');
 
-var config = { };
-var server = new Hapi.Server('0.0.0.0', 8080, config);
-server.pack.require({ lout: { endpoint: '/docs' } }, function (err) {
+var server = function() {
+	'use strict';
 
-    if (err) {
-        console.log('Failed loading plugins');
-    }
-});
+	var config = {};
+	var server = new Hapi.Server('0.0.0.0', 8080, config);
+	server.pack.require({
+		lout : {
+			endpoint : '/docs'
+		}
+	}, function(err) {
 
-server.addRoutes(routes);
+		if (err) {
+			console.log('Failed loading plugins');
+		}
+	});
 
-server.start();
+	server.addRoutes(routes);
+
+	server.start();
+};
+
+server();
