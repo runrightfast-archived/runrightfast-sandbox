@@ -14,9 +14,26 @@
  * the License.
  */
 
-var products = require('./routes/products-routes');
+'use strict';
 
-var routes = [];
-routes = routes.concat(products);
+var expect = require('chai').expect;
 
-module.exports = routes;
+var productService = require('../lib/products')();
+
+describe('Products API Unit Tests', function() {
+	it('can be used to retrieve all products', function() {
+		var response = null;
+		
+		var request = {
+			query : {},
+			reply : function(x){
+				response = x;
+			}
+		};
+
+		productService.getProducts(request);
+		expect(response).to.exist;
+		expect(response.length).to.be.above(0);
+	});
+
+});

@@ -36,12 +36,24 @@ module.exports = function(grunt) {
 							failOnError : false
 						}
 					}
+				},
+				cafemocha : {
+					spec : {
+						src : 'server/test/*.js',
+						options : {
+							ui : 'bdd',
+							reporter : 'spec'
+						}
+					}
 				}
 			});
 
 	grunt.loadNpmTasks('grunt-jslint');
+	grunt.loadNpmTasks('grunt-cafe-mocha');
+
+	grunt.registerTask('test', [ 'cafemocha:spec' ]);
 
 	// Default task(s).
-	grunt.registerTask('default', [ 'jslint' ]);
+	grunt.registerTask('default', [ 'jslint', 'test' ]);
 
 };
