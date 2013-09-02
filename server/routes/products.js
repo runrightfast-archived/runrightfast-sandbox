@@ -16,62 +16,7 @@
 
 var Types = require('hapi').types;
 
-var products = function() {
-	'use strict';
-
-	var products = [ {
-		id : 1,
-		name : 'Guitar'
-	}, {
-		id : 2,
-		name : 'Banjo'
-	} ];
-
-	var findProducts = function(name) {
-		return products.filter(function(product) {
-			return product.name.toLowerCase() === name.toLowerCase();
-		});
-	};
-
-	var getProducts = function(request) {
-		if (request.query.name) {
-			request.reply(findProducts(request.query.name));
-		} else {
-			request.reply(products);
-		}
-	};
-
-	var getProduct = function(request) {
-
-		var product = products.filter(function(p) {
-			return p.id === parseInt(request.params.id,10);
-		}).pop();
-
-		request.reply(product);
-	};
-
-	var addProduct = function(request) {
-
-		var product = {
-			id : products[products.length - 1].id + 1,
-			name : request.payload.name
-		};
-
-		products.push(product);
-
-		request.reply(product).code(201).header(
-				'Location,: /products/' + product.id);
-	};
-
-	return {
-		getProducts : getProducts,
-		findProducts : findProducts,
-		getProduct : getProduct,
-		addProduct : addProduct
-	};
-};
-
-var products = products();
+var products = require('../lib/products')();
 
 module.exports = [ {
 	method : 'GET',
