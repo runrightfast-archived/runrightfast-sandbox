@@ -23,10 +23,10 @@ var productService = require('../lib/products')();
 describe('Products API Unit Tests', function() {
 	it('can be used to retrieve all products', function() {
 		var response = null;
-		
+
 		var request = {
 			query : {},
-			reply : function(x){
+			reply : function(x) {
 				response = x;
 			}
 		};

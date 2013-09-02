@@ -16,51 +16,54 @@
 module.exports = function(grunt) {
 	'use strict';
 	// Project configuration.
-	grunt
-			.initConfig({
-				pkg : grunt.file.readJSON('package.json'),
-				jslint : {
-					server : {
-						src : [ 'server/routes/*.js', 'server/*.js',
-								'server/test/*.js' ],
-						directives : {
-							node : true,
-							todo : true,
-							white : true,
-							vars : true
-						},
-						options : {
-							log : 'out/server-lint.log',
-							jslintXml : 'out/server-jslint.xml',
-							errorsOnly : true,
-							failOnError : false
-						}
-					}
+	grunt.initConfig({
+		pkg : grunt.file.readJSON('package.json'),
+		jslint : {
+			server : {
+				src : [ 'server/routes/*.js', 'server/*.js',
+						'server/test/*.js' ],
+				directives : {
+					node : true,
+					todo : true,
+					white : true,
+					vars : true,
+					predef : ['describe','it']
 				},
-				mochacov : {
-					coverage : {
-						options : {
-							reporter : 'html-cov',
-							output : "out/coverage.html"
-						}
-					},
-					test : {
-						options : {
-							reporter : 'spec'
-						}
-					},
-					options : {
-						files : 'server/test/*.js'
-					}
+				options : {
+					log : 'out/server-lint.log',
+					jslintXml : 'out/server-jslint.xml',
+					errorsOnly : true,
+					failOnError : false
 				}
-			});
+			}
+		},
+		mochacov : {
+			coverage : {
+				options : {
+					reporter : 'html-cov',
+					output : "out/coverage.html"
+				}
+			},
+			test : {
+				options : {
+					reporter : 'spec',
+					coverage : true
+				}
+			},
+			options : {
+				files : 'server/test/*.js'
+			}
+		},
+		clean : [ 'out' ]
+	});
 
 	grunt.loadNpmTasks('grunt-jslint');
 	grunt.loadNpmTasks('grunt-mocha-cov');
-	
-	grunt.registerTask('test', ['mochacov:coverage']);
+	grunt.loadNpmTasks('grunt-contrib-clean');
+
+	grunt.registerTask('test', [ 'mochacov:coverage' ]);
 
 	// Default task(s).
-	grunt.registerTask('default', [ 'jslint', 'test' ]);
+	grunt.registerTask('default', [ 'clean', 'jslint', 'test' ]);
 
 };
