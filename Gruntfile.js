@@ -37,21 +37,28 @@ module.exports = function(grunt) {
 						}
 					}
 				},
-				cafemocha : {
-					spec : {
-						src : 'server/test/*.js',
+				mochacov : {
+					coverage : {
 						options : {
-							ui : 'bdd',
+							reporter : 'html-cov',
+							output : "out/coverage.html"
+						}
+					},
+					test : {
+						options : {
 							reporter : 'spec'
 						}
+					},
+					options : {
+						files : 'server/test/*.js'
 					}
 				}
 			});
 
 	grunt.loadNpmTasks('grunt-jslint');
-	grunt.loadNpmTasks('grunt-cafe-mocha');
-
-	grunt.registerTask('test', [ 'cafemocha:spec' ]);
+	grunt.loadNpmTasks('grunt-mocha-cov');
+	
+	grunt.registerTask('test', ['mochacov:coverage']);
 
 	// Default task(s).
 	grunt.registerTask('default', [ 'jslint', 'test' ]);

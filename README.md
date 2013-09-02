@@ -29,3 +29,4 @@ Project Structure:
  
 /server.js
  - configures and starts up a hapi server
+
