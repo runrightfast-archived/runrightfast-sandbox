@@ -23,7 +23,8 @@
 		"events":"0.5.0",
 		"hapi":"1.9.6",
 		"lout":"0.5.0",
-		"handlebars":"1.0.12"
+		"handlebars":"1.0.12",
+		"tv":"0.5.0"
 	},
 	"devDependencies":{
 		"grunt":"~0.4.1",

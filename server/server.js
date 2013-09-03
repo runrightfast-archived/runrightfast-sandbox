@@ -20,18 +20,48 @@ var routes = require('./routes');
 var server = function() {
 	'use strict';
 
+	var configureServerEventListeners = function(server) {
+		server.on('log', function(event, tags) {
+			console.log(event);
+		});
+	};
+
+	var configureTv = function(server) {
+		var tvOptions = {
+			webSocketPort : 3000,
+			debugEndpoint : '/debug/console',
+			queryKey : 'debug'
+		};
+		server.pack.require('tv', tvOptions, function(err) {
+
+			if (!err) {
+				server.start();
+				server.log([ 'info', 'tv' ], 'started');
+			} else {
+				server.log([ 'error', 'tv' ], err.toString());
+			}
+		});
+	};
+
+	var configureLout = function(server) {
+		server.pack.require({
+			lout : {
+				endpoint : '/docs'
+			}
+		}, function(err) {
+
+			if (err) {
+				console.log('Failed loading plugins');
+			}
+		});
+	};
+
 	var config = {};
 	var server = new Hapi.Server('0.0.0.0', 8080, config);
-	server.pack.require({
-		lout : {
-			endpoint : '/docs'
-		}
-	}, function(err) {
+	configureLout(server);
+	configureTv(server);
 
-		if (err) {
-			console.log('Failed loading plugins');
-		}
-	});
+	configureServerEventListeners(server);
 
 	server.addRoutes(routes);
 
