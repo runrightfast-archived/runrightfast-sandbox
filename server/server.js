@@ -34,11 +34,10 @@ var server = function() {
 		};
 		server.pack.require('tv', tvOptions, function(err) {
 
-			if (!err) {
-				server.start();
-				server.log([ 'info', 'tv' ], 'started');
+			if (!err) {				
+				server.log([ 'info', 'tv' ], 'Loaded plugin');
 			} else {
-				server.log([ 'error', 'tv' ], err.toString());
+				server.log([ 'error', 'tv' ], 'Failed loading plugin: ' + err.message);
 			}
 		});
 	};
@@ -66,6 +65,8 @@ var server = function() {
 	server.addRoutes(routes);
 
 	server.start();
+
+	server.log([ 'info' ], 'server started at : ' + server.info.uri);
 };
 
 server();
