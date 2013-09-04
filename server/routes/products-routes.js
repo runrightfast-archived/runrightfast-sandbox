@@ -27,13 +27,17 @@ module.exports = [ {
 			query : {
 				name : Types.String()
 			}
-		}
+		},
+		description : 'returns all products',
+		tags : [ 'products' ]
 	}
 }, {
 	method : 'GET',
 	path : '/products/{id}',
 	config : {
-		handler : products.getProduct
+		handler : products.getProduct,
+		description : 'returns a specific product',
+		tags : [ 'products' ]
 	}
 }, {
 	method : 'POST',
@@ -45,6 +49,9 @@ module.exports = [ {
 			payload : {
 				name : Types.String().required().min(3)
 			}
-		}
+		},
+		description : 'creates a new product',
+		notes : [ 'the product name must be at least 3 chars long' ],
+		tags : [ 'products' ]
 	}
 } ];
