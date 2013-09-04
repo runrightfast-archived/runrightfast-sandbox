@@ -21,7 +21,7 @@ var server = function() {
 	'use strict';
 
 	var configureServerEventListeners = function(server) {
-		server.on('log', function(event, tags) {
+		server.on('log', function(event) {
 			console.log(event);
 		});
 	};
