@@ -22,6 +22,29 @@ var server = function() {
 
 	var configureServerEventListeners = function(server) {
 		server.on('log', function(event) {
+			event.serverEvent = 'log';
+			console.log(event);
+		});
+
+		// request, response, and tail events logging is very verbose
+		// //////////////////////////////////////////////////////////
+		// server.on('request', function(event) {
+		// event.serverEvent = 'log';
+		// console.log(event);
+		// });
+		//
+		// server.on('response', function(event) {
+		// event.serverEvent = 'response';
+		// console.log(event);
+		// });
+		//
+		// server.on('tail', function(event) {
+		// event.serverEvent = 'tail';
+		// console.log(event);
+		// });
+
+		server.on('internalError', function(event) {
+			event.serverEvent = 'internalError';
 			console.log(event);
 		});
 	};
