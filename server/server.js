@@ -28,11 +28,26 @@ var server = function() {
 
 		// request, response, and tail events logging is very verbose
 		// //////////////////////////////////////////////////////////
-		// server.on('request', function(event) {
-		// event.serverEvent = 'log';
-		// console.log(event);
-		// });
-		//
+		server.on('request', function(event, tags) {
+			var msg = {
+				serverEvent : 'request',
+				tags : tags
+			};
+			if (event.id) {
+				msg.id = event.id;
+			}
+			if (event.info) {
+				msg.info = event.info;
+			}
+			if (event.method) {
+				msg.method = event.method;
+			}
+			if (event.url) {
+				msg.url = event.url;
+			}
+			console.log(msg);
+		});
+
 		// server.on('response', function(event) {
 		// event.serverEvent = 'response';
 		// console.log(event);
