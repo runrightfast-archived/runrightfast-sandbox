@@ -16,6 +16,7 @@
 
 var Hapi = require('hapi');
 var routes = require('./routes');
+var furball = require('furball');
 
 var server = function() {
 	'use strict';
@@ -89,7 +90,17 @@ var server = function() {
 		}, function(err) {
 
 			if (err) {
-				console.log('Failed loading plugins');
+				server.log([ 'error', 'lout' ], 'Failed loading plugin: '
+						+ err.message);
+			}
+		});
+	};
+
+	var configureFurball = function(server) {
+		server.pack.require('furball', function(err) {
+			if (err) {
+				server.log([ 'error', 'furball' ], 'Failed loading plugin: '
+						+ err.message);
 			}
 		});
 	};
@@ -98,6 +109,7 @@ var server = function() {
 	var server = new Hapi.Server('0.0.0.0', 8080, config);
 	configureLout(server);
 	configureTv(server);
+	configureFurball(server);
 
 	configureServerEventListeners(server);
 
