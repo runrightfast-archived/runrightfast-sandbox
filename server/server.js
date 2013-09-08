@@ -52,20 +52,22 @@ var server = function() {
 		server.on('tail', function(request) {
 			var msg = {
 				serverEvent : 'tail',
+				log : request.getLog()
 			};
 
 			if (request.id) {
 				msg.id = request.id;
 			}
 
-			console.log(msg);
+			console.log(JSON.stringify(msg));
 		});
 
 		server.on('internalError', function(request, err) {
 			var event = {
 				serverEvent : 'internalError',
 				request : request,
-				err : err
+				err : err,
+				log : request.getLog()
 			};
 			console.log(event);
 		});
