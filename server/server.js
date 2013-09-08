@@ -29,38 +29,44 @@ var server = function() {
 
 		// request, response, and tail events logging is very verbose
 		// //////////////////////////////////////////////////////////
-		server.on('request', function(event, tags) {
+		server.on('request', function(request, event) {
 			var msg = {
 				serverEvent : 'request',
-				tags : tags
+				event : event
 			};
-			if (event.id) {
-				msg.id = event.id;
-			}
-			if (event.info) {
-				msg.info = event.info;
-			}
-			if (event.method) {
-				msg.method = event.method;
-			}
-			if (event.url) {
-				msg.url = event.url;
-			}
 			console.log(msg);
 		});
 
-		// server.on('response', function(event) {
-		// event.serverEvent = 'response';
-		// console.log(event);
-		// });
-		//
-		// server.on('tail', function(event) {
-		// event.serverEvent = 'tail';
-		// console.log(event);
-		// });
+		server.on('response', function(request) {
+			var msg = {
+				serverEvent : 'response'
+			};
 
-		server.on('internalError', function(event) {
-			event.serverEvent = 'internalError';
+			if (request.id) {
+				msg.id = request.id;
+			}
+
+			console.log(msg);
+		});
+
+		server.on('tail', function(request) {
+			var msg = {
+				serverEvent : 'tail',
+			};
+
+			if (request.id) {
+				msg.id = request.id;
+			}
+
+			console.log(msg);
+		});
+
+		server.on('internalError', function(request, err) {
+			var event = {
+				serverEvent : 'internalError',
+				request : request,
+				err : err
+			};
 			console.log(event);
 		});
 	};
