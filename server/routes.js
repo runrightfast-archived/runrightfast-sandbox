@@ -14,8 +14,23 @@
  * the License.
  */
 
+var Hapi = require('hapi');
 
-var routes = [];
+var routes = [ {
+	method : 'GET',
+	path : '/hapi-version',
+	config : {
+		handler : function(request) {
+			response = {
+				hapiVersion : Hapi.utils.version()
+			};
+			request.reply(response);
+		},
+		description : 'returns new UUID',
+		tags : [ 'uuid' ]
+	}
+} ];
+
 routes = routes.concat(require('./routes/products-routes'));
 routes = routes.concat(require('./routes/uuid-routes'));
 
