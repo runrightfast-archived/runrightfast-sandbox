@@ -14,26 +14,16 @@
  * the License.
  */
 
-'use strict';
+var Types = require('hapi').types;
 
-var expect = require('chai').expect;
+var uuid = require('../lib/uuid');
 
-var productService = require('../lib/products');
-
-describe('Products API Unit Tests', function() {
-	it('can be used to retrieve all products', function() {
-		var response = null;
-
-		var request = {
-			query : {},
-			reply : function(x) {
-				response = x;
-			}
-		};
-
-		productService.getProducts(request);
-		expect(response).to.exist;
-		expect(response.length).to.be.above(0);
-	});
-
-});
+module.exports = [ {
+	method : 'GET',
+	path : '/uuid',
+	config : {
+		handler : uuid.newUUID,
+		description : 'returns new UUID',
+		tags : [ 'uuid' ]
+	}
+} ];

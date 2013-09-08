@@ -21,11 +21,12 @@
 		"lodash":"1.3.1",
 		"async":"0.2.9",
 		"events":"0.5.0",
-		"hapi":"1.9.6",
+		"hapi":"1.9.7",
 		"lout":"0.5.0",
 		"handlebars":"1.0.12",
 		"tv":"0.5.0",
-		"furball":"0.3.3"
+		"furball":"0.3.3",
+		"uuid":"1.4.1"
 	},
 	"devDependencies":{
 		"grunt":"~0.4.1",
@@ -35,7 +36,6 @@
 		"sinon":"~1.7.3",
 		"sinon-chai":"~2.4.0",
 		"grunt-mocha-cov":"~0.0.7",
-		"grunt-contrib-clean":"~0.5.0",
-		"grunt-contrib-jshint":"~0.6.4"
+		"grunt-contrib-clean":"~0.5.0"
 	}
 }

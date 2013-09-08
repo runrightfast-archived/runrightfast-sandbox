@@ -14,7 +14,7 @@
  * the License.
  */
 
-module.exports = function() {
+(function() {
 	'use strict';
 
 	var products = [ {
@@ -25,13 +25,14 @@ module.exports = function() {
 		name : 'Banjo'
 	} ];
 
-	var findProducts = function(name) {
-		return products.filter(function(product) {
-			return product.name.toLowerCase() === name.toLowerCase();
-		});
-	};
+	module.exports.getProducts = function(request) {
 
-	var getProducts = function(request) {
+		var findProducts = function(name) {
+			return products.filter(function(product) {
+				return product.name.toLowerCase() === name.toLowerCase();
+			});
+		};
+
 		if (request.query.name) {
 			request.reply(findProducts(request.query.name));
 		} else {
@@ -39,7 +40,7 @@ module.exports = function() {
 		}
 	};
 
-	var getProduct = function(request) {
+	module.exports.getProduct = function(request) {
 
 		var product = products.filter(function(p) {
 			return p.id === parseInt(request.params.id, 10);
@@ -48,7 +49,7 @@ module.exports = function() {
 		request.reply(product);
 	};
 
-	var addProduct = function(request) {
+	module.exports.addProduct = function(request) {
 
 		var product = {
 			id : products[products.length - 1].id + 1,
@@ -60,11 +61,4 @@ module.exports = function() {
 		request.reply(product).code(201).header(
 				'Location,: /products/' + product.id);
 	};
-
-	return {
-		getProducts : getProducts,
-		findProducts : findProducts,
-		getProduct : getProduct,
-		addProduct : addProduct
-	};
-};
+})();

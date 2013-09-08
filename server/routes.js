@@ -14,9 +14,9 @@
  * the License.
  */
 
-var products = require('./routes/products-routes');
 
 var routes = [];
-routes = routes.concat(products);
+routes = routes.concat(require('./routes/products-routes'));
+routes = routes.concat(require('./routes/uuid-routes'));
 
 module.exports = routes;

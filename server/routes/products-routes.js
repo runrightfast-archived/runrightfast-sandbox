@@ -16,7 +16,7 @@
 
 var Types = require('hapi').types;
 
-var products = require('../lib/products')();
+var products = require('../lib/products');
 
 module.exports = [ {
 	method : 'GET',

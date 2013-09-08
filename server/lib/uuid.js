@@ -13,27 +13,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+var uuid = require('uuid');
 
-'use strict';
-
-var expect = require('chai').expect;
-
-var productService = require('../lib/products');
-
-describe('Products API Unit Tests', function() {
-	it('can be used to retrieve all products', function() {
-		var response = null;
-
-		var request = {
-			query : {},
-			reply : function(x) {
-				response = x;
-			}
-		};
-
-		productService.getProducts(request);
-		expect(response).to.exist;
-		expect(response.length).to.be.above(0);
-	});
-
-});
+module.exports.newUUID = function(request) {
+	'use strict';
+	var response = request.reply(uuid.v4());
+	response.type('text/plain');
+};
