@@ -21,7 +21,8 @@ var routes = [ {
 	path : '/hapi-version',
 	config : {
 		handler : function(request) {
-			response = {
+			'use strict';
+			var response = {
 				hapiVersion : Hapi.utils.version()
 			};
 			request.reply(response);
